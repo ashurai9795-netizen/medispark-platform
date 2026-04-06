@@ -3,13 +3,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { AuthProvider } from "@/context/AuthContext";
-import { ProtectedRoute } from "@/routes/ProtectedRoute";
-import LoginPage from "@/pages/LoginPage";
-import DashboardPage from "@/pages/DashboardPage";
-import PatientsPage from "@/pages/PatientsPage";
-import DoctorsPage from "@/pages/DoctorsPage";
-import AppointmentsPage from "@/pages/AppointmentsPage";
+import MentalHealthLayout from "@/components/layout/MentalHealthLayout";
+import MentalHealthHome from "@/pages/MentalHealthHome";
+import ChatPage from "@/pages/ChatPage";
+import MoodTrackerPage from "@/pages/MoodTrackerPage";
+import JournalPage from "@/pages/JournalPage";
+import BreathingPage from "@/pages/BreathingPage";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -19,18 +18,18 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
-            <Route path="/patients" element={<ProtectedRoute><PatientsPage /></ProtectedRoute>} />
-            <Route path="/doctors" element={<ProtectedRoute><DoctorsPage /></ProtectedRoute>} />
-            <Route path="/appointments" element={<ProtectedRoute><AppointmentsPage /></ProtectedRoute>} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<MentalHealthLayout />}>
+            <Route path="/" element={<MentalHealthHome />} />
+            <Route path="/chat" element={<ChatPage />} />
+            <Route path="/mood" element={<MoodTrackerPage />} />
+            <Route path="/journal" element={<JournalPage />} />
+            <Route path="/breathing" element={<BreathingPage />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );
